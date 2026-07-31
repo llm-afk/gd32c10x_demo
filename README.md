@@ -1,0 +1,8 @@
+- 配置依赖文件路径
+  - 指定ARMCC编译工具链地址在toolchain.cmake中
+  - 指定烧录用jlink.exe工具地址在build.bat中
+- 编译命令
+  - build.bat clean 清空编译产物
+  - build.bat build 编译
+  - build.bat flash 烧录
+  - build.bat clean build flash 组合操作
