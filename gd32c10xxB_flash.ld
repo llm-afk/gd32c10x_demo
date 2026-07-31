@@ -117,6 +117,14 @@ SECTIONS
     PROVIDE_HIDDEN (__fini_array_end = .);
   } >FLASH
 
+  /* RTT control block, placed at RAM start for easy discovery */
+  .rtt_cb (NOLOAD) :
+  {
+    . = ALIGN(4);
+    *(.rtt_cb)
+    . = ALIGN(4);
+  } > RAM
+
   /* provide some necessary symbols for initialized data */
   _sidata = LOADADDR(.data);
   .data :

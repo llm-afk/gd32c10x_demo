@@ -22,13 +22,17 @@ add_link_options("-Wl,--no-warn-rwx-segments")
 # 3. Source Files
 set(SOURCES
     src/app/main.c
-    src/app/systick_delay.c
+    src/app/gd32c10x_it.c
+    src/middle/systick.c
     src/driver/CMSIS/GD/GD32C10x/Source/system_gd32c10x.c
     src/driver/CMSIS/GD/GD32C10x/Source/GCC/startup_gd32c10x.S
     src/driver/CMSIS/GD/GD32C10x/Source/GCC/newlib/syscalls.c
     src/driver/GD32C10x_standard_peripheral/Source/gd32c10x_misc.c
     src/driver/GD32C10x_standard_peripheral/Source/gd32c10x_rcu.c
     src/driver/GD32C10x_standard_peripheral/Source/gd32c10x_gpio.c
+    src/lib/rtt/SEGGER_RTT.c
+    src/lib/rtt/SEGGER_RTT_printf.c
+    src/lib/rtt/SEGGER_RTT_ASM_ARMv7M.S
 )
 
 # 4. Create the executable
@@ -37,13 +41,15 @@ add_executable(${PROJECT_NAME}.elf ${SOURCES})
 # 5. Include Directories
 target_include_directories(${PROJECT_NAME}.elf PRIVATE
     src/app
+    src/middle
     src/driver/CMSIS
     src/driver/CMSIS/GD/GD32C10x/Include
     src/driver/GD32C10x_standard_peripheral/Include
+    src/lib/rtt
 )
 
 # 6. Global Defines
-target_compile_definitions(${PROJECT_NAME}.elf PRIVATE GD32C10X)
+target_compile_definitions(${PROJECT_NAME}.elf PRIVATE GD32C10X SEGGER_RTT_SECTION=\".rtt_cb\")
 
 # 7. Post-build steps to generate hex and bin files
 add_custom_command(TARGET ${PROJECT_NAME}.elf POST_BUILD

@@ -8,7 +8,7 @@ setlocal enabledelayedexpansion
 set "JLINK_DEVICE=GD32C103CB"
 
 :: Path to J-Link executable
-set "JLINK_EXE=D:\Program Files\SEGGER\JLink_V942\JLink.exe"
+set "JLINK_EXE=D:\Program Files\SEGGER\JLink_V956\JLink.exe"
 
 :: Build Directory Name
 set "BUILD_DIR=build"
